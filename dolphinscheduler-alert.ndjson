@@ -1,0 +1,130 @@
+[
+  {
+    "_id": "index-pattern:prometheus.collector-whaleops-*",
+    "_type": "index-pattern",
+    "_source": {
+      "type": "index-pattern",
+      "index-pattern": {
+        "title": "prometheus.collector-whaleops-*",
+        "timeFieldName": "@timestamp",
+        "fields": "[]",
+        "fieldFormatMap": "{}"
+      }
+    }
+  },
+  {
+    "_id": "visualization:DolphinScheduler-Alert-Send-Cost-90th",
+    "_type": "visualization",
+    "_source": {
+      "title": "Alert Send Cost (90th Percentile, ms)",
+      "visState": "{\"title\":\"Alert Send Cost (90th Percentile, ms)\",\"type\":\"metric\",\"params\":{\"addTooltip\":true,\"addLegend\":false,\"type\":\"metric\",\"metric\":{\"percentageMode\":false,\"useRanges\":false,\"invertRanges\":false,\"colorSchema\":\"Green to Red\",\"colors\":[{\"range\":100,\"color\":\"#00ff00\"},{\"range\":500,\"color\":\"#ffff00\"},{\"range\":null,\"color\":\"#ff0000\"}],\"labels\":{\"show\":true},\"metricColorMode\":\"labels\",\"style\":{\"fontSize\":40,\"bgColor\":false,\"labelColor\":false,\"subText\":\"\"}}},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"percentiles\",\"schema\":\"metric\",\"params\":{\"field\":\"prometheus.metrics.dolphinscheduler_alert_send_cost_bucket\",\"percents\":[90],\"customLabel\":\"90th Percentile (ms)\"}}]}",
+      "uiStateJSON": "{}",
+      "description": "",
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"prometheus.collector-whaleops-*\",\"query\":{\"query\":\"\",\"language\":\"kuery\"},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "visualization:DolphinScheduler-Alert-Success-Rate",
+    "_type": "visualization",
+    "_source": {
+      "title": "Alert Send Success Rate (%)",
+      "visState": "{\"title\":\"Alert Send Success Rate (%)\",\"type\":\"metric\",\"params\":{\"addTooltip\":true,\"addLegend\":false,\"type\":\"metric\",\"metric\":{\"percentageMode\":true,\"useRanges\":true,\"invertRanges\":false,\"colorSchema\":\"Green to Red\",\"colors\":[{\"range\":95,\"color\":\"#ff0000\"},{\"range\":99,\"color\":\"#ffff00\"},{\"range\":null,\"color\":\"#00ff00\"}],\"labels\":{\"show\":true},\"metricColorMode\":\"labels\",\"style\":{\"fontSize\":50,\"bgColor\":false,\"labelColor\":false,\"subText\":\"\"}}},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"math\",\"schema\":\"metric\",\"params\":{\"script\":\"(sum(prometheus.metrics.dolphinscheduler_alert_send_success_count) / sum(prometheus.metrics.dolphinscheduler_alert_send_total_count)) * 100\",\"customLabel\":\"Success Rate (%)\"}}]}",
+      "uiStateJSON": "{}",
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"prometheus.collector-whaleops-*\",\"query\":{\"query\":\"\",\"language\":\"kuery\"},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "visualization:DolphinScheduler-Alert-QPS",
+    "_type": "visualization",
+    "_source": {
+      "title": "Alert Send QPS",
+      "visState": "{\"title\":\"Alert Send QPS\",\"type\":\"timelion\",\"params\":{\"expression\":\".es(index=prometheus.collector-whaleops-*, metric=prometheus.metrics.dolphinscheduler_alert_send_total_count, timefield=@timestamp).derivative().divide(1).lines(fill=1, width=2)\",\"interval\":\"auto\"},\"aggs\":[]}",
+      "uiStateJSON": "{}",
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"prometheus.collector-whaleops-*\",\"query\":{\"query\":\"\",\"language\":\"kuery\"},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "visualization:DolphinScheduler-Alert-Avg-Duration",
+    "_type": "visualization",
+    "_source": {
+      "title": "Alert Send Duration (Avg, ms)",
+      "visState": "{\"title\":\"Alert Send Duration (Avg, ms)\",\"type\":\"timelion\",\"params\":{\"expression\":\".es(index=prometheus.collector-whaleops-*, metric=prometheus.metrics.dolphinscheduler_alert_send_cost_sum, timefield=@timestamp).divide(.es(index=prometheus.collector-whaleops-*, metric=prometheus.metrics.dolphinscheduler_alert_send_total_count, timefield=@timestamp)).lines(fill=1)\",\"interval\":\"auto\"},\"aggs\":[]}",
+      "uiStateJSON": "{}",
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"prometheus.collector-whaleops-*\",\"query\":{\"query\":\"\",\"language\":\"kuery\"},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "visualization:DolphinScheduler-Alert-Status",
+    "_type": "visualization",
+    "_source": {
+      "title": "Alert Send Status (Success vs Failed)",
+      "visState": "{\"title\":\"Alert Send Status (Success vs Failed)\",\"type\":\"timelion\",\"params\":{\"expression\":\".es(index=prometheus.collector-whaleops-*, metric=prometheus.metrics.dolphinscheduler_alert_send_total_count, timefield=@timestamp).derivative().divide(1).label('success').if(eq, prom, 'status', 'success'), .es(index=prometheus.collector-whaleops-*, metric=prometheus.metrics.dolphinscheduler_alert_send_total_count, timefield=@timestamp).derivative().divide(1).label('failed').if(eq, prom, 'status', 'failed').color(#ff0000)\",\"interval\":\"auto\"},\"aggs\":[]}",
+      "uiStateJSON": "{}",
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"prometheus.collector-whaleops-*\",\"query\":{\"query\":\"\",\"language\":\"kuery\"},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "visualization:DolphinScheduler-Alert-By-Type",
+    "_type": "visualization",
+    "_source": {
+      "title": "Alert Send By Type",
+      "visState": "{\"title\":\"Alert Send By Type\",\"type\":\"line\",\"params\":{\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"right\",\"showMetricsAtAllLevels\":false,\"interpolate\":\"linear\"},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{\"customLabel\":\"Rate\"}},{\"id\":\"2\",\"enabled\":true,\"type\":\"date_histogram\",\"schema\":\"segment\",\"params\":{\"field\":\"@timestamp\",\"interval\":\"2m\",\"customLabel\":\"\"}},{\"id\":\"3\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"group\",\"params\":{\"field\":\"prometheus.labels.alert_type\",\"size\":10,\"order\":\"desc\",\"orderBy\":\"1\"}}]}",
+      "uiStateJSON": "{\"vis\":{\"legendOpen\":true}}",
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"prometheus.collector-whaleops-*\",\"query\":{\"query\":\"prometheus.metrics.dolphinscheduler_alert_send_total_count:*\",\"language\":\"kuery\"},\"filter\":[]}"
+      }
+    }
+  },
+  {
+    "_id": "dashboard:DolphinScheduler-Alert",
+    "_type": "dashboard",
+    "_source": {
+      "title": "DolphinScheduler Alert",
+      "hits": 0,
+      "description": "Converted from Grafana → fully working with prometheus.collector-whaleops-*",
+      "panelsJSON": "[{\"version\":\"8.15.0\",\"gridPos\":{\"h\":8,\"w\":4,\"x\":0,\"y\":0},\"id\":\"visualization:DolphinScheduler-Alert-Send-Cost-90th\",\"type\":\"visualization\",\"title\":\"Alert Send Cost (90th Percentile, ms)\"},{\"version\":\"8.15.0\",\"gridPos\":{\"h\":8,\"w\":4,\"x\":4,\"y\":0},\"id\":\"visualization:DolphinScheduler-Alert-Success-Rate\",\"type\":\"visualization\",\"title\":\"Alert Send Success Rate (%)\"},{\"version\":\"8.15.0\",\"gridPos\":{\"h\":8,\"w\":4,\"x\":8,\"y\":0},\"id\":\"visualization:DolphinScheduler-Alert-QPS\",\"type\":\"visualization\",\"title\":\"Alert Send QPS\"},{\"version\":\"8.15.0\",\"gridPos\":{\"h\":8,\"w\":4,\"x\":12,\"y\":0},\"id\":\"visualization:DolphinScheduler-Alert-Avg-Duration\",\"type\":\"visualization\",\"title\":\"Alert Send Duration (Avg, ms)\"},{\"version\":\"8.15.0\",\"gridPos\":{\"h\":8,\"w\":4,\"x\":16,\"y\":0},\"id\":\"visualization:DolphinScheduler-Alert-Status\",\"type\":\"visualization\",\"title\":\"Alert Send Status\"},{\"version\":\"8.15.0\",\"gridPos\":{\"h\":8,\"w\":4,\"x\":20,\"y\":0},\"id\":\"visualization:DolphinScheduler-Alert-By-Type\",\"type\":\"visualization\",\"title\":\"Alert Send By Type\"}]",
+      "optionsJSON": "{\"hidePanelTitles\":false,\"useMargins\":true,\"darkTheme\":false}",
+      "uiStateJSON": "{\"vis\":{\"colors\":{\"Success Rate (%)\":\"#00ff00\",\"90th Percentile (ms)\":\"#ff0000\"}}}",
+      "timeRestore": true,
+      "timeFrom": "now-6h",
+      "timeTo": "now",
+      "refreshInterval": {"pause": false, "value": 30000},
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"query\":{\"query\":\"\",\"language\":\"kuery\"},\"filter\":[]}"
+      },
+      "version": 1,
+      "controls": [
+        {
+          "id": "server-control",
+          "type": "optionsList",
+          "options": {
+            "fieldName": "prometheus.labels.server",
+            "title": "Server",
+            "multiselect": false
+          }
+        },
+        {
+          "id": "alert-type-control",
+          "type": "optionsList",
+          "options": {
+            "fieldName": "prometheus.labels.alert_type",
+            "title": "Alert Type",
+            "multiselect": true,
+            "choices": ["all","email","dingding","webhook","sms"]
+          }
+        }
+      ]
+    }
+  }
+]
