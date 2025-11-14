@@ -1,0 +1,14 @@
+[
+  {
+    "id": "vis-success-rate",
+    "type": "visualization",
+    "attributes": {
+      "title": "Success Rate (%)",
+      "visState": "{\"title\":\"Success Rate (%)\",\"type\":\"metric\",\"aggs\":[{\"id\":\"1\",\"type\":\"formula\",\"params\":{\"formula\":\"(sum(prometheus.metrics.dolphinscheduler_alert_send_success_count) / sum(prometheus.metrics.dolphinscheduler_alert_send_total_count)) * 100\",\"label\":\"Rate\"},\"schema\":\"metric\"}],\"params\":{\"type\":\"gauge\",\"gauge\":{\"colorSchema\":\"Green to Red\",\"colors\":[{\"range\":95,\"text\":\"#ff0000\"},{\"range\":99,\"text\":\"#ffff00\"},{\"range\":null,\"text\":\"#00ff00\"}]}}}"
+    },
+    "references": [],
+    "kibanaSavedObjectMeta": {
+      "searchSourceJSON": "{\"index\":\"prometheus.collector-whaleops-*\",\"query\":{\"query\":\"\",\"language\":\"kuery\"},\"filter\":[]}"
+    }
+  }
+]
