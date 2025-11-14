@@ -1,16 +1,16 @@
 [
   {
+    "id": "prometheus.collector-whaleops-*",
+    "type": "index-pattern",
     "attributes": {
       "title": "prometheus.collector-whaleops-*",
-      "timeFieldName": "@timestamp",
-      "fieldFormatMap": "{}",
-      "fields": "[]"
+      "timeFieldName": "@timestamp"
     },
-    "type": "index-pattern",
-    "id": "prometheus.collector-whaleops-*",
     "references": []
   },
   {
+    "id": "vis-cost-90th",
+    "type": "visualization",
     "attributes": {
       "title": "Alert Send Cost (90th ms)",
       "visState": "{\"title\":\"Alert Send Cost (90th ms)\",\"type\":\"metric\",\"aggs\":[{\"id\":\"1\",\"type\":\"percentiles\",\"params\":{\"field\":\"prometheus.metrics.dolphinscheduler_alert_send_cost_bucket\",\"percents\":[90]},\"schema\":\"metric\"}],\"params\":{\"addTooltip\":true,\"addLegend\":false,\"type\":\"gauge\",\"gauge\":{\"colorSchema\":\"Green to Red\",\"colors\":[{\"range\":100,\"text\":\"#00ff00\"},{\"range\":500,\"text\":\"#ffff00\"},{\"range\":null,\"text\":\"#ff0000\"}]}}}",
@@ -18,24 +18,23 @@
         "searchSourceJSON": "{\"index\":\"prometheus.collector-whaleops-*\",\"query\":{\"query\":\"\",\"language\":\"kuery\"},\"filter\":[]}"
       }
     },
-    "type": "visualization",
-    "id": "vis-cost-90th",
     "references": []
   },
   {
+    "id": "dashboard-ds-alert",
+    "type": "dashboard",
     "attributes": {
-      "title": "Alert Send Success Rate (%)",
-      "visState": "{\"title\":\"Alert Send Success Rate (%)\",\"type\":\"metric\",\"aggs\":[{\"id\":\"1\",\"type\":\"formula\",\"params\":{\"formula\":\"(sum(prometheus.metrics.dolphinscheduler_alert_send_success_count) / sum(prometheus.metrics.dolphinscheduler_alert_send_total_count)) * 100\",\"label\":\"Success Rate (%)\"},\"schema\":\"metric\"}],\"params\":{\"addTooltip\":true,\"addLegend\":false,\"type\":\"gauge\",\"gauge\":{\"colorSchema\":\"Green to Red\",\"colors\":[{\"range\":95,\"text\":\"#ff0000\"},{\"range\":99,\"text\":\"#ffff00\"},{\"range\":null,\"text\":\"#00ff00\"}]}}}",
-      "kibanaSavedObjectMeta": {
-        "searchSourceJSON": "{\"index\":\"prometheus.collector-whaleops-*\",\"query\":{\"query\":\"\",\"language\":\"kuery\"},\"filter\":[]}"
-      }
+      "title": "DolphinScheduler Alert (starter)",
+      "panelsJSON": "[{\"version\":\"8.15.0\",\"gridPos\":{\"h\":8,\"w\":4,\"x\":0,\"y\":0},\"type\":\"visualization\",\"id\":\"vis-cost-90th\"}]",
+      "optionsJSON": "{\"hidePanelTitles\":false,\"useMargins\":true}",
+      "timeRestore": true,
+      "timeFrom": "now-6h",
+      "timeTo": "now",
+      "refreshInterval": { "pause": false, "value": 30000 },
+      "kibanaSavedObjectMeta": { "searchSourceJSON": "{\"query\":{\"query\":\"\",\"language\":\"kuery\"},\"filter\":[]}" }
     },
-    "type": "visualization",
-    "id": "vis-success-rate",
-    "references": []
-  },
-  {
-    "attributes": {
-      "title": "Alert Send QPS",
-      "visState": "{\"title\":\"Alert Send QPS\",\"type\":\"line\",\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\"},{\"id\":\"2\",\"type\":\"date_histogram\",\"schema\":\"segment\",\"params\":{\"field\":\"@timestamp\",\"interval\":\"2m\"}}],\"params\":{\"addTooltip\":true,\"addLegend\":true}}",
-      "kibanaSavedObjectMeta":
+    "references": [
+      { "name": "panel_0", "type": "visualization", "id": "vis-cost-90th" }
+    ]
+  }
+]
