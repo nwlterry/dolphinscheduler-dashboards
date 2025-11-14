@@ -2,73 +2,40 @@
   {
     "attributes": {
       "title": "prometheus.collector-whaleops-*",
-      "timeFieldName": "@timestamp"
+      "timeFieldName": "@timestamp",
+      "fieldFormatMap": "{}",
+      "fields": "[]"
     },
-    "references": [],
     "type": "index-pattern",
-    "id": "prometheus.collector-whaleops-*"
+    "id": "prometheus.collector-whaleops-*",
+    "references": []
   },
   {
     "attributes": {
-      "title": "DolphinScheduler Alert",
-      "description": "Converted from Grafana – works with prometheus.collector-whaleops-*",
-      "panelsJSON": "[{\"version\":\"8.15\",\"gridPos\":{\"h\":8,\"w\":4,\"x\":0,\"y\":0},\"type\":\"visualization\",\"id\":\"vis-cost\",\"title\":\"Alert Send Cost (90th ms)\"},{\"version\":\"8.15\",\"gridPos\":{\"h\":8,\"w\":4,\"x\":4,\"y\":0},\"type\":\"visualization\",\"id\":\"vis-success\",\"title\":\"Success Rate (%)\"},{\"version\":\"8.15\",\"gridPos\":{\"h\":8,\"w\":4,\"x\":8,\"y\":0},\"type\":\"visualization\",\"id\":\"vis-qps\",\"title\":\"Alert Send QPS\"},{\"version\":\"8.15\",\"gridPos\":{\"h\":8,\"w\":4,\"x\":12,\"y\":0},\"type\":\"visualization\",\"id\":\"vis-duration\",\"title\":\"Avg Duration (ms)\"},{\"version\":\"8.15\",\"gridPos\":{\"h\":8,\"w\":4,\"x\":16,\"y\":0},\"type\":\"visualization\",\"id\":\"vis-status\",\"title\":\"Status\"},{\"version\":\"8.15\",\"gridPos\":{\"h\":8,\"w\":4,\"x\":20,\"y\":0},\"type\":\"visualization\",\"id\":\"vis-type\",\"title\":\"By Type\"}]",
-      "optionsJSON": "{\"hidePanelTitles\":false,\"useMargins\":true}",
-      "timeRestore": true,
-      "timeFrom": "now-6h",
-      "timeTo": "now",
-      "refreshInterval": {"pause": false, "value": 30000},
-      "kibanaSavedObjectMeta": {"searchSourceJSON": "{\"query\":{\"query\":\"\",\"language\":\"kuery\"},\"filter\":[]}"},
-      "visState": "{}",
-      "uiStateJSON": "{}",
-      "controlState": "[{\"id\":\"server\",\"options\":{\"fieldName\":\"prometheus.labels.server\",\"title\":\"Server\",\"type\":\"optionsList\"}},{\"id\":\"type\",\"options\":{\"fieldName\":\"prometheus.labels.alert_type\",\"title\":\"Alert Type\",\"multiSelect\":true,\"choices\":[\"email\",\"dingding\",\"webhook\",\"sms\"],\"type\":\"optionsList\"}}]"
+      "title": "Alert Send Cost (90th ms)",
+      "visState": "{\"title\":\"Alert Send Cost (90th ms)\",\"type\":\"metric\",\"aggs\":[{\"id\":\"1\",\"type\":\"percentiles\",\"params\":{\"field\":\"prometheus.metrics.dolphinscheduler_alert_send_cost_bucket\",\"percents\":[90]},\"schema\":\"metric\"}],\"params\":{\"addTooltip\":true,\"addLegend\":false,\"type\":\"gauge\",\"gauge\":{\"colorSchema\":\"Green to Red\",\"colors\":[{\"range\":100,\"text\":\"#00ff00\"},{\"range\":500,\"text\":\"#ffff00\"},{\"range\":null,\"text\":\"#ff0000\"}]}}}",
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"prometheus.collector-whaleops-*\",\"query\":{\"query\":\"\",\"language\":\"kuery\"},\"filter\":[]}"
+      }
     },
-    "references": [
-      {"name":"panel_0","type":"visualization","id":"vis-cost"},
-      {"name":"panel_1","type":"visualization","id":"vis-success"},
-      {"name":"panel_2","type":"visualization","id":"vis-qps"},
-      {"name":"panel_3","type":"visualization","id":"vis-duration"},
-      {"name":"panel_4","type":"visualization","id":"vis-status"},
-      {"name":"panel_5","type":"visualization","id":"vis-type"},
-      {"name":"indexpattern","type":"index-pattern","id":"prometheus.collector-whaleops-*"}
-    ],
-    "type": "dashboard",
-    "id": "DolphinScheduler-Alert"
+    "type": "visualization",
+    "id": "vis-cost-90th",
+    "references": []
   },
   {
-    "attributes": {"title":"Alert Send Cost (90th ms)","visState":"{\"title\":\"Alert Send Cost (90th ms)\",\"type\":\"metric\",\"params\":{\"addTooltip\":true,\"addLegend\":false,\"type\":\"gauge\",\"gauge\":{\"alignment\":\"automatic\",\"orientation\":\"vertical\",\"colorSchema\":\"Green to Red\",\"colors\":[{\"range\":100,\"text\":\"#00ff00\"},{\"range\":500,\"text\":\"#ffff00\"},{\"range\":null,\"text\":\"#ff0000\"}]}},\"aggs\":[{\"id\":\"1\",\"type\":\"percentiles\",\"params\":{\"field\":\"prometheus.metrics.dolphinscheduler_alert_send_cost_bucket\",\"percents\":[90]}}]}"},
-    "references": [{"name":"kibanaSavedObjectMeta.searchSourceJSON.index","type":"index-pattern","id":"prometheus.collector-whaleops-*"}],
-    "type":"visualization",
-    "id":"vis-cost"
+    "attributes": {
+      "title": "Alert Send Success Rate (%)",
+      "visState": "{\"title\":\"Alert Send Success Rate (%)\",\"type\":\"metric\",\"aggs\":[{\"id\":\"1\",\"type\":\"formula\",\"params\":{\"formula\":\"(sum(prometheus.metrics.dolphinscheduler_alert_send_success_count) / sum(prometheus.metrics.dolphinscheduler_alert_send_total_count)) * 100\",\"label\":\"Success Rate (%)\"},\"schema\":\"metric\"}],\"params\":{\"addTooltip\":true,\"addLegend\":false,\"type\":\"gauge\",\"gauge\":{\"colorSchema\":\"Green to Red\",\"colors\":[{\"range\":95,\"text\":\"#ff0000\"},{\"range\":99,\"text\":\"#ffff00\"},{\"range\":null,\"text\":\"#00ff00\"}]}}}",
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"prometheus.collector-whaleops-*\",\"query\":{\"query\":\"\",\"language\":\"kuery\"},\"filter\":[]}"
+      }
+    },
+    "type": "visualization",
+    "id": "vis-success-rate",
+    "references": []
   },
   {
-    "attributes": {"title":"Success Rate (%)","visState":"{\"title\":\"Success Rate (%)\",\"type\":\"metric\",\"params\":{\"addTooltip\":true,\"addLegend\":false,\"type\":\"gauge\",\"gauge\":{\"alignment\":\"automatic\",\"colorSchema\":\"Green to Red\",\"colors\":[{\"range\":95,\"text\":\"#ff0000\"},{\"range\":99,\"text\":\"#ffff00\"},{\"range\":null,\"text\":\"#00ff00\"}]}},\"aggs\":[{\"id\":\"1\",\"type\":\"formula\",\"params\":{\"formula\":\"(sum(prometheus.metrics.dolphinscheduler_alert_send_success_count) / sum(prometheus.metrics.dolphinscheduler_alert_send_total_count)) * 100\",\"label\":\"Success Rate (%)\"}}]}"},
-    "references": [{"name":"kibanaSavedObjectMeta.searchSourceJSON.index","type":"index-pattern","id":"prometheus.collector-whaleops-*"}],
-    "type":"visualization",
-    "id":"vis-success"
-  },
-  {
-    "attributes": {"title":"Alert Send QPS","visState":"{\"title\":\"Alert Send QPS\",\"type\":\"line\",\"params\":{\"addTooltip\":true,\"addLegend\":true},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"params\":{}},{\"id\":\"2\",\"type\":\"date_histogram\",\"params\":{\"field\":\"@timestamp\",\"interval\":\"auto\"}},{\"id\":\"3\",\"type\":\"derivative\",\"params\":{\"field\":\"1\"}}]}" },
-    "references": [{"name":"kibanaSavedObjectMeta.searchSourceJSON.index","type":"index-pattern","id":"prometheus.collector-whaleops-*"},{"name":"kibanaSavedObjectMeta.searchSourceJSON.filter","type":"query","id":"prometheus.metrics.dolphinscheduler_alert_send_total_count:*"}],
-    "type":"visualization",
-    "id":"vis-qps"
-  },
-  {
-    "attributes": {"title":"Avg Duration (ms)","visState":"{\"title\":\"Avg Duration (ms)\",\"type\":\"line\",\"params\":{\"addTooltip\":true,\"addLegend\":false},\"aggs\":[{\"id\":\"1\",\"type\":\"avg\",\"params\":{\"field\":\"prometheus.metrics.dolphinscheduler_alert_send_cost_sum\"}},{\"id\":\"2\",\"type\":\"avg\",\"params\":{\"field\":\"prometheus.metrics.dolphinscheduler_alert_send_total_count\"}},{\"id\":\"3\",\"type\":\"math\",\"params\":{\"script\":\"params.one / params.two\"}}]}"},
-    "references": [{"name":"kibanaSavedObjectMeta.searchSourceJSON.index","type":"index-pattern","id":"prometheus.collector-whaleops-*"}],
-    "type":"visualization",
-    "id":"vis-duration"
-  },
-  {
-    "attributes": {"title":"Status","visState":"{\"title\":\"Status\",\"type\":\"area\",\"params\":{\"addTooltip\":true,\"addLegend\":true,\"stacked\":true},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"params\":{}},{\"id\":\"2\",\"type\":\"date_histogram\",\"params\":{\"field\":\"@timestamp\",\"interval\":\"auto\"}},{\"id\":\"3\",\"type\":\"terms\",\"params\":{\"field\":\"prometheus.labels.status\",\"size\":5}}]}"},
-    "references": [{"name":"kibanaSavedObjectMeta.searchSourceJSON.index","type":"index-pattern","id":"prometheus.collector-whaleops-*"},{"name":"kibanaSavedObjectMeta.searchSourceJSON.filter","type":"query","id":"prometheus.metrics.dolphinscheduler_alert_send_total_count:*"}],
-    "type":"visualization",
-    "id":"vis-status"
-  },
-  {
-    "attributes": {"title":"By Type","visState":"{\"title\":\"By Type\",\"type\":\"line\",\"params\":{\"addTooltip\":true,\"addLegend\":true},\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"params\":{}},{\"id\":\"2\",\"type\":\"date_histogram\",\"params\":{\"field\":\"@timestamp\",\"interval\":\"auto\"}},{\"id\":\"3\",\"type\":\"terms\",\"params\":{\"field\":\"prometheus.labels.alert_type\",\"size\":10}}]}"},
-    "references": [{"name":"kibanaSavedObjectMeta.searchSourceJSON.index","type":"index-pattern","id":"prometheus.collector-whaleops-*"},{"name":"kibanaSavedObjectMeta.searchSourceJSON.filter","type":"query","id":"prometheus.metrics.dolphinscheduler_alert_send_total_count:*"}],
-    "type":"visualization",
-    "id":"vis-type"
-  }
-]
+    "attributes": {
+      "title": "Alert Send QPS",
+      "visState": "{\"title\":\"Alert Send QPS\",\"type\":\"line\",\"aggs\":[{\"id\":\"1\",\"type\":\"count\",\"schema\":\"metric\"},{\"id\":\"2\",\"type\":\"date_histogram\",\"schema\":\"segment\",\"params\":{\"field\":\"@timestamp\",\"interval\":\"2m\"}}],\"params\":{\"addTooltip\":true,\"addLegend\":true}}",
+      "kibanaSavedObjectMeta":
